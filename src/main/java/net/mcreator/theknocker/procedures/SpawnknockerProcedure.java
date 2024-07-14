@@ -54,12 +54,14 @@ public class SpawnknockerProcedure {
 							_ent.getName().getString(), _ent.getDisplayName(), _ent.level.getServer(), _ent), "spreadplayers ~ ~ 0 50 false @e[type=the_knocker:knockerstalklooked,limit=1]");
 				}
 			}
-			if (knocker instanceof LivingEntity _entity) {
-				ItemStack _setstack = new ItemStack(Blocks.SOUL_TORCH);
-				_setstack.setCount(1);
-				_entity.setItemInHand(InteractionHand.MAIN_HAND, _setstack);
-				if (_entity instanceof Player _player)
-					_player.getInventory().setChanged();
+			if (knocker != null) {
+				if (knocker instanceof LivingEntity _entity) {
+					ItemStack _setstack = new ItemStack(Blocks.SOUL_TORCH);
+					_setstack.setCount(1);
+					_entity.setItemInHand(InteractionHand.MAIN_HAND, _setstack);
+					if (_entity instanceof Player _player)
+						_player.getInventory().setChanged();
+				}
 			}
 			{
 				BlockPos _bp = new BlockPos(knocker.getX(), knocker.getY() + 1, knocker.getZ());
@@ -75,8 +77,10 @@ public class SpawnknockerProcedure {
 				}
 				world.setBlock(_bp, _bs, 3);
 			}
-			if (knocker instanceof KnockerstalklookedEntity _datEntSetL)
+			if (knocker != null) {
+				if (knocker instanceof KnockerstalklookedEntity _datEntSetL)
 				_datEntSetL.getEntityData().set(KnockerstalklookedEntity.DATA_torch_event, true);
+			}
 		} else {
 			if (world instanceof ServerLevel _level) {
 				Entity entityToSpawn = new KnockerEntity(TheKnockerModEntities.KNOCKER.get(), _level);
