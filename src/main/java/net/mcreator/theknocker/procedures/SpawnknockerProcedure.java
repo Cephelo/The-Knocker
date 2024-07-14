@@ -62,22 +62,20 @@ public class SpawnknockerProcedure {
 					if (_entity instanceof Player _player)
 						_player.getInventory().setChanged();
 				}
-			}
-			{
-				BlockPos _bp = new BlockPos(knocker.getX(), knocker.getY() + 1, knocker.getZ());
-				BlockState _bs = Blocks.LIGHT.defaultBlockState();
-				BlockState _bso = world.getBlockState(_bp);
-				for (Map.Entry<Property<?>, Comparable<?>> entry : _bso.getValues().entrySet()) {
-					Property _property = _bs.getBlock().getStateDefinition().getProperty(entry.getKey().getName());
-					if (_property != null && _bs.getValue(_property) != null)
-						try {
-							_bs = _bs.setValue(_property, (Comparable) entry.getValue());
-						} catch (Exception e) {
-						}
+				{
+					BlockPos _bp = new BlockPos(knocker.getX(), knocker.getY() + 1, knocker.getZ());
+					BlockState _bs = Blocks.LIGHT.defaultBlockState();
+					BlockState _bso = world.getBlockState(_bp);
+					for (Map.Entry<Property<?>, Comparable<?>> entry : _bso.getValues().entrySet()) {
+						Property _property = _bs.getBlock().getStateDefinition().getProperty(entry.getKey().getName());
+						if (_property != null && _bs.getValue(_property) != null)
+							try {
+								_bs = _bs.setValue(_property, (Comparable) entry.getValue());
+							} catch (Exception e) {
+							}
+					}
+					world.setBlock(_bp, _bs, 3);
 				}
-				world.setBlock(_bp, _bs, 3);
-			}
-			if (knocker != null) {
 				if (knocker instanceof KnockerstalklookedEntity _datEntSetL)
 				_datEntSetL.getEntityData().set(KnockerstalklookedEntity.DATA_torch_event, true);
 			}
